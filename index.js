@@ -1,6 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql');
+import express from 'express';
+import cors from 'cors'
+import { connection } from './connection.js';
+import productsRoutes from './routes/products.js'
 
 const app = express();
 app.use(cors());
@@ -26,13 +27,13 @@ app.get('/categories', (req, res) => {
     })
 })
 
-app.get('/products', (req, res) => {
-    const query = "SELECT *, CONCAT(users.username, ' ', users.surname) AS author FROM products JOIN users ON products.userID = users.userID;"
-    connection.query(query, (err, data)=> {
-        if(err) return res.json(err);
-        return res.json(data)
-    })
-})
+// app.get('/products', (req, res) => {
+//     const query = "SELECT *, CONCAT(users.username, ' ', users.surname) AS author FROM products JOIN users ON products.userID = users.userID;"
+//     connection.query(query, (err, data)=> {
+//         if(err) return res.json(err);
+//         return res.json(data)
+//     })
+// })
 
 app.post('/register', (req, res) => {
     const { username, surname, email, password } = req.body;
@@ -59,16 +60,11 @@ app.post('/register', (req, res) => {
 });
 
 
+app.use("/", productsRoutes);
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-});
-
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'protech_db'
 });
 
 connection.connect((err) => {
