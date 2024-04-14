@@ -7,14 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/users', (req, res) => {
-    const query = "SELECT * FROM users";
-    connection.query(query, (err, data) => {
-        if(err) return res.json(err);
-        return res.json(data);
-    });
-});
-
 app.get('/categories', (req, res) => {
     const query = "SELECT * FROM categories";
     connection.query(query, (err, data) => {
@@ -48,7 +40,7 @@ app.post('/register', (req, res) => {
 });
 
 
-app.use("/", productsRoutes);
+app.use("/products", productsRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
