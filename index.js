@@ -7,10 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    return res.json("from backend side");
-});
-
 app.get('/users', (req, res) => {
     const query = "SELECT * FROM users";
     connection.query(query, (err, data) => {
@@ -26,14 +22,6 @@ app.get('/categories', (req, res) => {
         return res.json(data);
     })
 })
-
-// app.get('/products', (req, res) => {
-//     const query = "SELECT *, CONCAT(users.username, ' ', users.surname) AS author FROM products JOIN users ON products.userID = users.userID;"
-//     connection.query(query, (err, data)=> {
-//         if(err) return res.json(err);
-//         return res.json(data)
-//     })
-// })
 
 app.post('/register', (req, res) => {
     const { username, surname, email, password } = req.body;
