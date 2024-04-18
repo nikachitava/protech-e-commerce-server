@@ -1,13 +1,17 @@
 import express from 'express';
+const app = express();
 import cors from 'cors'
 import { connection } from './connection.js';
 import productsRoutes from './routes/products.js'
 import categoriesRoutes from "./routes/categories.js"
 import authRoutes from "./routes/auth.js"
+import cookieParser from 'cookie-parser';
 
-const app = express();
+
+/* middlewares */
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser())
 
 
 
