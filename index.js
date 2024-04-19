@@ -9,15 +9,23 @@ import cookieParser from 'cookie-parser';
 
 
 /* middlewares */
-app.use(cors());
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+});
 app.use(express.json());
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+    })
+);
 app.use(cookieParser())
 
 
 
 app.use("/products", productsRoutes);
 app.use("/categories", categoriesRoutes)
-app.use("/register", authRoutes)
+app.use("/auth", authRoutes)
 
 const PORT = 3000;
 app.listen(PORT, () => {
