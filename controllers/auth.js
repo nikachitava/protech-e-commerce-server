@@ -48,3 +48,10 @@ export const login = (req, res) => {
         }).status(200).json(others);
     })
 }
+
+export const logout = (req, res) => {
+    res.clearCookie("accessToken", {
+        secure: true,
+        sameSite: "none"
+    }).status(200).json("User has beed logged out")
+}
