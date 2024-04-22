@@ -8,3 +8,12 @@ export const getProducts = (req, res) => {
     });
 }
 
+export const getProduct = (req, res) => {
+    const productID = req.params.productID;
+    const query = "SELECT * FROM products WHERE productID = ?";
+    connection.query(query, [productID], (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.json(data);
+    });
+}
+
