@@ -1,12 +1,28 @@
 import { connection } from '../connection.js';
 
+// export const getProducts = (req, res) => {
+//     const query = "SELECT *, CONCAT(users.username, ' ', users.surname) AS author FROM products JOIN users ON products.userID = users.userID;"
+//     connection.query(query, (err, data)=> {
+//         if(err) return res.status(500).json(err);
+//         return res.json(data)
+//     });
+// }
+
 export const getProducts = (req, res) => {
-    const query = "SELECT *, CONCAT(users.username, ' ', users.surname) AS author FROM products JOIN users ON products.userID = users.userID;"
+    const { category } = req.query; 
+    let query = "SELECT *, CONCAT(users.username, ' ', users.surname) AS author FROM products JOIN users ON products.userID = users.userID JOIN categories ON products.categoryID = categories.categoryID";
+
+    if (category) {
+        query += ` WHERE categories.categoryName = '${category}'`; 
+    }
+    
     connection.query(query, (err, data)=> {
         if(err) return res.status(500).json(err);
         return res.json(data)
     });
 }
+
+
 
 export const getProduct = (req, res) => {
     const productID = req.params.productID;
