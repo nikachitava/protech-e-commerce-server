@@ -5,6 +5,7 @@ import { connection } from './connection.js';
 import productsRoutes from './routes/products.js'
 import categoriesRoutes from "./routes/categories.js"
 import authRoutes from "./routes/auth.js"
+import usersRoutes from "./routes/users.js"
 import cookieParser from 'cookie-parser';
 
 
@@ -26,6 +27,7 @@ app.use(cookieParser())
 app.use("/products", productsRoutes);
 app.use("/categories", categoriesRoutes)
 app.use("/auth", authRoutes)
+app.use("/users", usersRoutes)
 
 const PORT = 3000;
 app.listen(PORT, () => {
