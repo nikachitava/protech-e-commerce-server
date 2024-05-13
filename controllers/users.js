@@ -23,3 +23,12 @@ export const updatePersonalInfo = (req, res) => {
         return res.json({ message: 'Stored procedure executed successfully' });
     })
 }
+
+export const getPersonalInfo = (req, res) => {
+    const userID = req.query.userID;
+    const query = "SELECT * from personalinfo WHERE fk_userID = ?";
+    connection.query(query, [userID], (err, data) => {
+        if(err) return res.status(500).json(err);
+        return res.json(data);
+    })
+}
