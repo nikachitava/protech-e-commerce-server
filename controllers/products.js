@@ -30,3 +30,17 @@ export const getProduct = (req, res) => {
     });
 }
 
+export const deleteProduct = (req, res) => {
+    const productID = req.params.productID;
+    const query = "DELETE FROM products WHERE productID = ?";
+    connection.query(query, [productID], (err) => {
+        if (err) {
+            console.error("Error deleting product:", err);
+            res.status(500).send("Error deleting product");
+            return;
+          }
+          console.log("product deleted successfully");
+          res.status(200).send("product deleted successfully");
+    })
+}
+
