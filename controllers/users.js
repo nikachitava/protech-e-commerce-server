@@ -32,3 +32,17 @@ export const getPersonalInfo = (req, res) => {
         return res.json(data);
     })
 }
+
+export const deleteUser = (req, res) => {
+    const userID = req.params.userID;
+    const query = "DELETE FROM users WHERE userID = ?";
+    connection.query(query, [userID], (err) => {
+        if (err) {
+            console.error("Error deleting user:", err);
+            res.status(500).send("Error deleting user");
+            return;
+          }
+          console.log("User deleted successfully");
+          res.status(200).send("User deleted successfully");
+    })
+}
